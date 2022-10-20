@@ -1,7 +1,19 @@
+import re
+import subprocess
 import os
 import requests
 import zipfile
-os.system('cls')
+def split_sentence(sentence, character):
+    return re.split(character, sentence)
+def cmd(command):
+    return subprocess.check_output(command, shell=True).decode('utf-8')
+command = r'wmic path win32_VideoController get name | findstr /i /V "name"'
+
+subprocess.call("cls", shell=True)
+
+placa=cmd(command)
+final=split_sentence(placa, ' ')[0].lower()
+
 # USAR DDU
 def DDUF(placaF:str):
     os.system(f'"Display Driver Uninstaller.exe" -clean{placaF} -silent -nosafemodemsg -restart')
@@ -14,22 +26,13 @@ open('ddu.zip', 'wb').write(r.content)
 with zipfile.ZipFile("ddu.zip", 'r') as zip_ref:
     zip_ref.extractall()
 
-
-
-# CONSEGUIR PLACA
-os.system(r'wmic path win32_VideoController get name | findstr /i /V "name" > placa.txt')
-with open('placa.txt') as f:
-    lines = f.readlines()
-lines=str(lines)
-ttt=lines.lower()
-
-#DETECTAR PLACA
-print(ttt)
-if "nvidia" in ttt:
-    DDUF("nvidia")
-elif "amd" in ttt:
-    DDUF("amd")
-elif "intel" in ttt:
-    DDUF("intel")
+if placa in ['nvidia', 'geforce']:
+    DDUF('nvidia')
+elif placa in ['amd', 'radeon']:
+    DDUF('amd')
+elif placa in ['intel', 'hd graphics']:
+    DDUF('intel')
 else:
-    raise Exception("no se pudo detectar tu placa, contacta a peron#0268 en DS")
+    print('Placa no soportada')
+    print('Presione cualquier tecla para salir')
+    input()

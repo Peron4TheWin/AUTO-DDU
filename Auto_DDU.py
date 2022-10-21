@@ -19,7 +19,7 @@ def DDUF(placaF:str):
     os.system(f'"Display Driver Uninstaller.exe" -clean{placaF} -silent -nosafemodemsg -restart')
 
 # INSTALAR DDU
-DDU = "https://cdn.discordapp.com/attachments/1005754191563722793/1005763660167262238/DDU.zip"
+DDU = "https://cdn.discordapp.com/attachments/901637950520033291/1033126099456106546/ddu.zip"
 local_file = 'ddu.zip'
 r = requests.get(DDU, allow_redirects=True)
 open('ddu.zip', 'wb').write(r.content)

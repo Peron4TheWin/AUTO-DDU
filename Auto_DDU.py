@@ -26,6 +26,9 @@ open('ddu.zip', 'wb').write(r.content)
 with zipfile.ZipFile("ddu.zip", 'r') as zip_ref:
     zip_ref.extractall()
 
+placa = final.lower()    
+    
+    
 if placa in ['nvidia', 'geforce']:
     DDUF('nvidia')
 elif placa in ['amd', 'radeon']:
